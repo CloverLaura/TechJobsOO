@@ -13,6 +13,9 @@ namespace TechJobs.ViewModels
         // The search results
         public List<Job> Jobs { get; set; }
 
+        // The search results if there is only one
+        public Job Job { get; set; }
+
         // The column to search, defaults to all
         public JobFieldType Column { get; set; } = JobFieldType.All;
 
