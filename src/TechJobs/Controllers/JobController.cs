@@ -2,6 +2,8 @@
 using TechJobs.Data;
 using TechJobs.ViewModels;
 using TechJobs.Models;
+using System;
+using Microsoft.AspNetCore.Routing;
 
 namespace TechJobs.Controllers
 {
@@ -17,6 +19,7 @@ namespace TechJobs.Controllers
         }
 
         // The detail display for a given Job at URLs like /Job?id=17
+        [HttpGet]
         public IActionResult Index(int id)
         {
             // TODO #1 - get the Job with the given ID and pass it into the view
@@ -40,24 +43,20 @@ namespace TechJobs.Controllers
             // redirect to the Job detail (Index) action/view for the new Job.
             if (ModelState.IsValid)
             {
-                Employer employer = jobData.Employers.Find(newJobViewModel.EmployerID);
-                Location location = jobData.Locations.Find(newJobViewModel.LocationID);
-                CoreCompetency coreCompetency = jobData.CoreCompetencies.Find(newJobViewModel.CoreCompentencyID);
-                PositionType positionType = jobData.PositionTypes.Find(newJobViewModel.PositionTypeID);
                 Job newJob = new Job
                 {
                     Name = newJobViewModel.Name,
-                    Employer = employer,
-                    Location = location,
-                    CoreCompetency = coreCompetency,
-                    PositionType = positionType
+                    Employer = jobData.Employers.Find(newJobViewModel.EmployerID),
+                    Location = jobData.Locations.Find(newJobViewModel.LocationID),
+                    CoreCompetency = jobData.CoreCompetencies.Find(newJobViewModel.CoreCompentencyID),
+                    PositionType = jobData.PositionTypes.Find(newJobViewModel.PositionTypeID)
 
                 };
 
                 jobData.Jobs.Add(newJob);
-                SearchJobsViewModel searchJobsViewModel = new SearchJobsViewModel();
-                searchJobsViewModel.Job = newJob;
-                return View("Index", searchJobsViewModel);
+                string id = newJob.ID.ToString();
+                string link = "/Job?id=" + id;
+                return Redirect(@link);
 
             }
 

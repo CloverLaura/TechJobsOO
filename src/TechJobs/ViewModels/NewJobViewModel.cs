@@ -6,7 +6,7 @@ using TechJobs.Models;
 
 namespace TechJobs.ViewModels
 {
-    public class NewJobViewModel
+    public class NewJobViewModel : BaseViewModel
     {
         [Required]
         [Display(Name="Name")]
@@ -21,22 +21,21 @@ namespace TechJobs.ViewModels
         public int LocationID { get; set; }
 
         [Required]
-        [Display(Name= "CoreCompetency")]
+        [Display(Name= "Skill")]
         public int CoreCompentencyID { get; set; }
 
-        [Required]
-        [Display(Name="PositionType")]
+         [Display(Name="PositionType")]
         public int PositionTypeID { get; set; }
 
         // TODO #3 - Included other fields needed to create a job,
         // with correct validation attributes and display names.
 
-        //public List<SelectListItem> Names { get; set; } = new List<SelectListItem>();
+        
         public List<SelectListItem> Employers { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> Locations { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> CoreCompetencies { get; set; } = new List<SelectListItem>();
         public List<SelectListItem> PositionTypes { get; set; } = new List<SelectListItem>();
-        //public List<SelectListItem> EmployerIDs { get; set; } = new List<SelectListItem>();
+        
         
 
         public NewJobViewModel()
